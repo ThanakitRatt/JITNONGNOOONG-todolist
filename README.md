@@ -13,10 +13,10 @@ This is a simple To-Do-List command-line application written in Python. Users of
 - View all to-do-list items
 - View to-do-list item details
   - Title
-Details
-Priority (high, low, mid)
-Status (completed, pending)
-Owner
-Updated date
-Created date
-Mark a to-do-list item as completed
+  - Details
+  - Priority (high, low, mid)
+  - Status (completed, pending)
+  - Owner
+  - Updated date
+  - Created date
+ - Mark a to-do-list item as completed
