@@ -39,12 +39,14 @@ Stored in `todos.json`. Note that `id` must be unique (UUID).
     - Implement a main application loop.
     - Create a "Pre-Login" menu: Options for [1] Login, [2] Sign Up, [3] Exit.
 
-- [ ] **3. Create and edit a to-do-list item
-    - Create and edit item in the `TodoItem` class
+- [ ] **3. Create and edit a to-do-list item**
+    - Create a to-do-list item and store in `todos.json` using `TodoItem` class in `models.py`
+    - Edit the stored to-do-list item using id in command line
 
-- [ ] **4. View all to-do-list items
-
-- [ ] **5. View to-do-list item details
+- [ ] **4. View all to-do-list items**
+    - Show all items in the command line interface
+    
+- [ ] **5. View to-do-list item details**
     - Title
     - Details
     - Priority (high, low, mid)
@@ -53,5 +55,5 @@ Stored in `todos.json`. Note that `id` must be unique (UUID).
     - Updated date
     - Created date
 
-- [ ] **6. Mark a to-do-list item as completed
+- [ ] **6. Mark a to-do-list item as completed**
 
