@@ -44,6 +44,7 @@ Stored in `todos.json`. Note that `id` must be unique (UUID).
 - [ ] **4. View all to-do-list items**
 
 - [ ] **5.View to-do-list item details**
+
     - Title
     - Details
     - Priority (high, low, mid)
@@ -51,6 +52,7 @@ Stored in `todos.json`. Note that `id` must be unique (UUID).
     - Owner
     - Updated date
     - Created date
+    
     In this format Stored in `todos.json`. Note that `id` must be unique (UUID).
     {
       "id": "uuid-string",
