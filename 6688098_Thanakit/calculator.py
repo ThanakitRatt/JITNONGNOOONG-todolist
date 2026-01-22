@@ -82,8 +82,10 @@ class Calculator:
         Raises:
             ValueError: If time is zero or negative
         """
-        if time <= 0:
-            raise ValueError("Time must be greater than zero")
+        if time < 0:
+            raise ValueError("Time must be positive")
+        elif time == 0:
+            raise ValueError("Time must not be zero")
         return distance / time
 
 
@@ -139,7 +141,7 @@ def main():
                 elif choice == "3":
                     result = calc.multiply(num1, num2)
                     operation = "*"
-                else:  # choice == "4"
+                elif  choice == "4"
                     result = calc.divide(num1, num2)
                     operation = "/"
                 
