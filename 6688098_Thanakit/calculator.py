@@ -67,7 +67,21 @@ class Calculator:
             raise ValueError("Cannot divide by zero")
         return a / b
 
+    @staticmethod
     def calculate_velocity(distance: float, time: float) -> float:
+        """
+        Calculate velocity from distance and time.
+        
+        Args:
+            distance: Distance traveled
+            time: Time taken
+            
+        Returns:
+            Velocity (distance / time)
+            
+        Raises:
+            ValueError: If time is zero or negative
+        """
         if time <= 0:
             raise ValueError("Time must be greater than zero")
         return distance / time
@@ -95,34 +109,41 @@ def main():
     print("=== Interactive Mode ===")
     while True:
         try:
-            print("\nOperations: 1(+), 2(-), 3(*), 4(/), 5(exit)")
-            choice = input("Select operation (1-5): ").strip()
+            print("\nOperations: 1(+), 2(-), 3(*), 4(/), 5(velocity), 6(exit)")
+            choice = input("Select operation (1-6): ").strip()
             
-            if choice == "5":
+            if choice == "6":
                 print("Exiting calculator. Goodbye!")
                 break
             
-            if choice not in ["1", "2", "3", "4"]:
-                print("Invalid choice. Please select 1-5.")
+            if choice not in ["1", "2", "3", "4", "5"]:
+                print("Invalid choice. Please select 1-6.")
                 continue
             
-            num1 = float(input("Enter first number: "))
-            num2 = float(input("Enter second number: "))
-            
-            if choice == "1":
-                result = calc.add(num1, num2)
-                operation = "+"
-            elif choice == "2":
-                result = calc.subtract(num1, num2)
-                operation = "-"
-            elif choice == "3":
-                result = calc.multiply(num1, num2)
-                operation = "*"
-            else:  # choice == "4"
-                result = calc.divide(num1, num2)
-                operation = "/"
-            
-            print(f"Result: {num1} {operation} {num2} = {result}")
+            if choice == "5":
+                # Velocity calculation
+                distance = float(input("Enter distance: "))
+                time = float(input("Enter time: "))
+                result = calc.calculate_velocity(distance, time)
+                print(f"Result: Velocity = {distance} / {time} = {result} units/time")
+            else:
+                num1 = float(input("Enter first number: "))
+                num2 = float(input("Enter second number: "))
+                
+                if choice == "1":
+                    result = calc.add(num1, num2)
+                    operation = "+"
+                elif choice == "2":
+                    result = calc.subtract(num1, num2)
+                    operation = "-"
+                elif choice == "3":
+                    result = calc.multiply(num1, num2)
+                    operation = "*"
+                else:  # choice == "4"
+                    result = calc.divide(num1, num2)
+                    operation = "/"
+                
+                print(f"Result: {num1} {operation} {num2} = {result}")
             
         except ValueError as e:
             print(f"Error: {e}")
