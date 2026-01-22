@@ -82,8 +82,10 @@ class Calculator:
         Raises:
             ValueError: If time is zero or negative
         """
-        if time <= 0:
-            raise ValueError("Time must be greater than zero")
+        if time < 0:
+            raise ValueError("Time must be positive")
+        elif time == 0:
+            raise ValueError("Time must not be zero")
         return distance / time
 
 
