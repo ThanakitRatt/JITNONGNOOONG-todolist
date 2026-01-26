@@ -67,6 +67,10 @@ def main():
         except ValueError as e:
             print(f"Error: {e}")
 
+def calculate_velocity(distance: float, time: float) -> float:
+    if time <= 0:
+        raise ValueError("Time must be greater than zero")
+    return distance / time
 
 if __name__ == "__main__":
     main()
