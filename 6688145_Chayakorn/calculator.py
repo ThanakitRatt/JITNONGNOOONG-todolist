@@ -23,3 +23,8 @@ if __name__ == "__main__":
     print(f"10 - 4 = {subtract(10, 4)}")
     print(f"6 * 7 = {multiply(6, 7)}")
     print(f"8 / 2 = {divide(8, 2)}")
+
+def calculate_velocity(distance: float, time: float) -> float:
+    if time <= 0:
+        raise ValueError("Time must be greater than zero")
+    return distance / time
