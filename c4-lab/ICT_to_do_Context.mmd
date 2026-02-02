@@ -1,0 +1,20 @@
+%% ICT To Do List — C4 Context diagram (Mermaid C4)
+%% Generated from system_description.md
+
+```mermaid
+%%{init: { "theme": "default" }}%%
+C4Context
+
+Person(student, "Student", "Manages personal tasks and syncs assignments from MyCourses")
+Person(instructor, "Instructor", "Views teaching-related tasks and monitors course deadlines; does not see students' private tasks")
+Person(admin, "System Administrator", "Manages system configuration, user accounts and monitors sync health")
+
+System(ict, "ICT To Do List", "Task management system for the ICT e-learning environment — supports manual tasks and imports assignments from MyCourses")
+System_Ext(mycourses, "MyCourses", "External ICT e-learning system that provides courses, assignments and submission status via web services (JSON)")
+
+Rel(student, ict, "Uses to manage tasks and sync assignments from MyCourses")
+Rel(instructor, ict, "Uses to view teaching-related tasks and course deadlines")
+Rel(admin, ict, "Uses to manage configuration, user accounts and monitor sync health")
+Rel(ict, mycourses, "Retrieves courses, assignments and submission status (HTTPS / JSON)")
+
+```

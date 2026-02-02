@@ -1,0 +1,28 @@
+```mermaid
+C4Component
+
+Container(web_api, "Web API", "Python FastAPI", "Backend REST API that exposes endpoints for task management and sync orchestration")
+ContainerDb(database, "Database", "PostgreSQL", "Stores users, tasks, sync settings and sync history")
+System_Ext(mycourses, "MyCourses", "External ICT e-learning system — provides courses, assignments and submission status via web services (JSON)")
+
+Container_Boundary(web_api, "Web API") {
+  Component(auth, "Authentication & Authorization", "Service/Library", "Handles login, token validation and access control (supports SSO or local accounts)")
+  Component(task_mgmt, "Task Management", "Service", "Handles CRUD operations for manual and imported tasks")
+  Component(sync_orch, "MyCourses Sync Orchestrator", "Service", "Manages sync workflow and coordinates calls to MyCourses client and mapping")
+  Component(myclient, "MyCourses Client", "HTTP Client", "Calls MyCourses web services and parses JSON responses")
+  Component(mapping, "Mapping", "Module", "Converts MyCourses assignment and submission data into the internal task model")
+  Component(sync_history, "Sync History", "Service", "Records sync outcomes for admin monitoring")
+  Component(data_access, "Data Access", "Repository", "Provides repository functions for PostgreSQL access and controlled transactions")
+}
+
+Rel_L(auth, data_access, "Validates user tokens / reads accounts", "SQL via ORM")
+Rel(task_mgmt, data_access, "Reads/Writes tasks and user data", "SQL via ORM")
+Rel(sync_orch, myclient, "Calls", "HTTPS / JSON")
+Rel(myclient, mycourses, "Calls", "HTTPS / JSON — retrieves courses, assignments and submission status")
+Rel(sync_orch, mapping, "Uses", "Converts assignments to internal task model")
+Rel(mapping, data_access, "Creates/Updates imported tasks (links to MyCourses assignment ID)", "SQL via ORM")
+Rel(sync_orch, sync_history, "Records sync outcomes", "Stores timestamp, result, error")
+Rel(data_access, database, "Reads/Writes", "SQL via ORM (e.g. SQLAlchemy)")
+Rel(task_mgmt, auth, "Checks permissions", "Access control checks")
+
+```
