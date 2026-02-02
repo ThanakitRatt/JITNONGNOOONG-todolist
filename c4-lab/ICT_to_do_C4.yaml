@@ -1,0 +1,93 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/SlavaVedernikov/C4InterFlow/refs/heads/master/C4InterFlow/schema.json
+Todo:
+  SoftwareSystems:
+    ICTtodosystem:
+      Label: ICT_to_do_system
+      Containers:
+        WebApplication:
+          Technology: React
+          ContainerType: Web Application
+          Interfaces:
+            Uses:
+              Description: Student, Instructor and Admin use web UI
+              Flows:
+                - Type: Use
+                  Expression: WebApplication.Interfaces.Uses
+        MobileApplication:
+          Technology: Flutter
+          ContainerType: Mobile
+          Interfaces:
+            Uses:
+              Description: Student uses mobile UI
+              Flows:
+                - Type: Use
+                  Expression: MobileApplication.Interfaces.Uses
+        WebAPI:
+          Technology: Python/ FastAPI/ Node.js
+          ContainerType: Api
+          Components:
+            AuthenticationAuthorizationService:
+              Label: Authentication/Authorization Service
+              Technology: Python/ FastAPI/ Node.js
+              ComponentType: Database
+              Interfaces:
+                LoginAndTokenValidation:
+                  Description: Handles login and access control and correct the token
+                  Flows:
+                    - Type: Use
+                      Expression: WebAPI.Components.AuthenticationAuthorizationService.Interfaces.LoginAndTokenValidation
+                RouteAuthentication:
+                  Description: Route to interface for authentication
+                  Protocol: HTTPS/JSON
+            TaskManagementService:
+              Technology: Python/ FastAPI/ Node.js
+              ComponentType: Database
+              Interfaces:
+                TaskCRUD:
+                  Description: Create, update, delete and view tasks
+                ReadWriteTasks:
+                  Description: Reads/ Write tasks
+                  Flows:
+                    - Type: Use
+                      Expression: WebAPI.Components.TaskManagementService.Interfaces.ReadWriteTasks
+          Interfaces:
+            RESTEndpoints:
+              Description:  Public REST endpoints over HTTPS and JSON
+        Database:
+          Technology: PostgreSQL
+          ContainerType: Database
+          Interfaces:
+            GeneralDBAccess:
+              Description: General database information access
+            ReadWriteUsers:
+              Description: Stores user profiles
+            ReadWriteTasks:
+              Description: Store manual and imported tasks
+            ReadWriteSyncHistory:
+              Description: Stores sync logs and errors
+    MyCourses:
+      Interfaces:
+        GetAssignmentsAndSubmissionStatus:
+          Description: Returns courses, assignments and submission data
+  Actors:
+    Students:
+      Activities:
+        UseWebApp:
+          Flows:
+            - Type: Use
+              Expression: ..ICTtodosystem.Containers.WebApplication.Interfaces.Uses
+        UseMobileApp:
+          Flows:
+            - Type: Use
+              Expression: ..ICTtodosystem.Containers.MobileApplication.Interfaces.Uses
+    Instructors:
+      Activities:
+        UseWebApp:
+          Flows:
+            - Type: Use
+    SystemAdministrator:
+      Activities:
+        UseAdminWeb:
+          Flows:
+            - Type: Use
+              Expression: ..ICTtodosystem.Containers.WebApplication.Interfaces.Uses
