@@ -1,4 +1,3 @@
-```mermaid
 C4Container
 
 Person(student, "Student", "Primary user - manages tasks and syncs assignments from MyCourses")
@@ -25,5 +24,3 @@ Rel(web_api, database, "Reads/Writes", "SQL via ORM (e.g. SQLAlchemy)")
 Rel(web_api, myconnector, "Invokes", "Internal call (function or internal HTTP)")
 Rel(myconnector, mycourses, "Calls", "HTTPS / JSON — retrieves courses, assignments and submission status")
 Rel(web_api, university_sso, "Uses for authentication when available", "OAuth2/OpenID Connect / HTTPS / JSON")
-
-```

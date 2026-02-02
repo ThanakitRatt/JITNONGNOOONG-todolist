@@ -1,4 +1,3 @@
-```mermaid
 C4Component
 
 Container(web_api, "Web API", "Python FastAPI", "Backend REST API that exposes endpoints for task management and sync orchestration")
@@ -24,5 +23,3 @@ Rel(mapping, data_access, "Creates/Updates imported tasks (links to MyCourses as
 Rel(sync_orch, sync_history, "Records sync outcomes", "Stores timestamp, result, error")
 Rel(data_access, database, "Reads/Writes", "SQL via ORM (e.g. SQLAlchemy)")
 Rel(task_mgmt, auth, "Checks permissions", "Access control checks")
-
-```
