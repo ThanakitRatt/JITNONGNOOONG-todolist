@@ -1,0 +1,142 @@
+workspace:
+  name: ICT To Do List
+  description: C4 model for ICT To Do List system
+
+  model:
+    people:
+      student:
+        name: Student
+        description: Manages personal tasks and assignments via web or mobile app
+
+      instructor:
+        name: Instructor
+        description: Views teaching-related tasks and deadlines
+
+      admin:
+        name: System Administrator
+        description: Manages system configuration and monitors sync health
+
+    softwareSystems:
+      ictTodo:
+        name: ICT To Do List
+        description: Task management system for ICT e-learning environment
+
+        containers:
+          webApp:
+            name: Web App
+            technology: React
+            description: Browser-based SPA for task management
+
+          mobileApp:
+            name: Mobile App
+            technology: Flutter
+            description: Cross-platform mobile app for iOS and Android
+
+          webApi:
+            name: Web API
+            technology: Python, FastAPI
+            description: REST API serving JSON over HTTPS
+
+            components:
+              apiGateway:
+                name: API Gateway
+                technology: FastAPI
+                description: Routes requests to backend services
+
+              authService:
+                name: Authentication Service
+                technology: Python
+                description: Handles authentication and authorization
+
+              taskService:
+                name: Task Management Service
+                technology: Python
+                description: Manages CRUD operations for tasks
+
+              userService:
+                name: User Management Service
+                technology: Python
+                description: Manages user accounts and profiles
+
+              assignmentService:
+                name: Assignment Sync Service
+                technology: Python
+                description: Synchronizes assignments from MyCourses
+
+          database:
+            name: Database
+            technology: PostgreSQL
+            description: Stores users, tasks, courses, and sync data
+
+          myCoursesConnector:
+            name: MyCourses Connector
+            technology: Python
+            description: Integration module for MyCourses API
+
+      myCourses:
+        name: MyCourses
+        description: External ICT e-learning system
+
+  relationships:
+    - source: student
+      destination: ictTodo
+      description: Uses to manage tasks and assignments
+
+    - source: instructor
+      destination: ictTodo
+      description: Uses to view tasks and deadlines
+
+    - source: admin
+      destination: ictTodo
+      description: Uses for system administration
+
+    - source: ictTodo
+      destination: myCourses
+      description: Retrieves courses and assignments
+      technology: HTTPS/JSON
+
+    - source: webApp
+      destination: webApi
+      description: Makes API calls
+      technology: HTTPS/JSON
+
+    - source: mobileApp
+      destination: webApi
+      description: Makes API calls
+      technology: HTTPS/JSON
+
+    - source: webApi
+      destination: database
+      description: Reads and writes data
+      technology: SQL
+
+    - source: webApi
+      destination: myCoursesConnector
+      description: Triggers sync jobs
+
+    - source: myCoursesConnector
+      destination: myCourses
+      description: Fetches course and assignment data
+      technology: HTTPS/JSON
+
+  views:
+    systemContext:
+      ictContext:
+        softwareSystem: ictTodo
+        description: System Context diagram for ICT To Do List
+        include:
+          - "*"
+
+    container:
+      ictContainers:
+        softwareSystem: ictTodo
+        description: Container diagram for ICT To Do List
+        include:
+          - "*"
+
+    component:
+      apiComponents:
+        container: webApi
+        description: Component diagram for Web API
+        include:
+          - "*"
