@@ -1,0 +1,26 @@
+C4Container
+
+Person(student, "Student", "Primary user - manages tasks and syncs assignments from MyCourses")
+Person(instructor, "Instructor", "Views teaching-related tasks and course deadlines")
+Person(admin, "System Administrator", "Manages configuration, user accounts and monitors sync health")
+
+Container(web_app, "Web App", "React SPA", "Browser-based UI for students and administrators")
+Container(mobile_app, "Mobile App", "Flutter", "Cross-platform mobile app for students")
+Container(web_api, "Web API", "Python FastAPI", "Backend REST JSON API — business logic and orchestration")
+ContainerDb(database, "Database", "PostgreSQL", "Stores users, tasks, sync settings and sync history")
+Container(myconnector, "MyCourses Connector", "Service Module", "Calls MyCourses web services and maps assignments into internal task records")
+
+System_Ext(mycourses, "MyCourses", "External ICT e-learning system that provides courses, assignments and submission status via web services (JSON)")
+System_Ext(university_sso, "University SSO", "External authentication (OAuth2/OpenID Connect) — used when available")
+
+Rel(student, web_app, "Uses", "HTTPS / JSON")
+Rel(student, mobile_app, "Uses", "HTTPS / JSON")
+Rel(instructor, web_app, "Uses (teaching view)", "HTTPS / JSON")
+Rel(admin, web_app, "Uses (admin UI)", "HTTPS / JSON")
+
+Rel(web_app, web_api, "Calls", "HTTPS / JSON")
+Rel(mobile_app, web_api, "Calls", "HTTPS / JSON")
+Rel(web_api, database, "Reads/Writes", "SQL via ORM (e.g. SQLAlchemy)")
+Rel(web_api, myconnector, "Invokes", "Internal call (function or internal HTTP)")
+Rel(myconnector, mycourses, "Calls", "HTTPS / JSON — retrieves courses, assignments and submission status")
+Rel(web_api, university_sso, "Uses for authentication when available", "OAuth2/OpenID Connect / HTTPS / JSON")
